@@ -2,4 +2,105 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  background: blue;
+  color: whitesmoke;
+}
+
+.subApp--div {
+  margin: 20px 100px;
+
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+}
+
+.main--title {
+  text-align: center;
+  font-family: 'Consolas';
+}
+
+.display--div {
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.display--div label {
+  font-family: 'Consolas';
+  font-size: 1.2rem;
+}
+
+.display--div input {
+  width: 12%;
+  padding: 0px 10px;
+  margin-left: 10px;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px whitesmoke;
+}
+
+.display--div button {
+  margin-left: 10px;
+  padding: 3px 10px;
+  background: royalblue;
+  border-color: white;
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+.display--div button:hover {
+  transform: scale(1.2);
+  font-weight: bold;
+  background: whitesmoke;
+  border-color: red;
+  border-radius: 5px;
+  color: red;
+}
+
+.notemap--div {
+  margin: 0px 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  border: 1px solid whitesmoke;
+}
+
+.notemap--div p {
+  margin: 5px 10px;
+  border: 1px solid whitesmoke;
+}
+
+.filtermap--div {
+  margin: 20px 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: dimgrey;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+}
+
+.filtermap--div p {
+  margin: 5px 10px;
+}
+
+.filtermap--div button {
+  margin-left: 10px;
+  padding: 3px 10px;
+  background: royalblue;
+  border-color: white;
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+.filtermap--div button:hover {
+  transform: scale(1.2);
+  font-weight: bold;
+  background: whitesmoke;
+  border-color: red;
+  border-radius: 5px;
+  color: red;
 }

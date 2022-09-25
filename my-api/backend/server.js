@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 
 const PORT = 4000;
@@ -42,6 +44,24 @@ app.get('/api/notes/:id', (request, response) => {
   const note = notes.find(note => note.id === id);
   console.log(note)
   response.json(note)
+});
+
+app.post('/api/notes', (request, response) => {
+  const note = newObject
+  response.json(note);
+});
+
+app.put('/api/notes/:id', (request, response) => {
+  const note = notes.find(note => note.id === id);
+  response.json(note);
+});
+
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id);
+  console.log(id)
+  const note = notes.filter(note => note.id !== id);
+  console.log(note);
+  response.json(note);
 });
 
 app.listen(PORT, () => console.log(`[+] Server is running on port : ${PORT}`));
