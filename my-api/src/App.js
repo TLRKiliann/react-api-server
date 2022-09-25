@@ -1,48 +1,104 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import noteService from './services/noteservices';
 import './App.css';
 
-const baseUrl = 'http://localhost:4000/api/notes';
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [filterNotes, setFilterNotes] = useState([]);
-
+  const [searchName, setSearchName] = useState("");
   const [newName, setNewName] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [switchNumber, setSwitchNumber] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(baseUrl)
+    noteService
+      .getAll()
       .then(initialNotes => {
-        console.log("promise fullfield")
-        setNotes(initialNotes.data);
-        setFilterNotes(initialNotes.data)
-      });
+        setNotes(initialNotes)
+        setFilterNotes(initialNotes)
+      })
   }, []);
 
+  //console.log("notes : ", notes)
+  //console.log("filterNotes : ", filterNotes)
+
   const displayNote = () => {
-    axios
-      .get(baseUrl)
+    noteService
+      .getAll()
       .then(initialNotes => {
-        console.log("promise fullfield")
-        setNotes(initialNotes.data);
-        setFilterNotes(initialNotes.data)
-      });
+        setNotes(initialNotes)
+        setFilterNotes(initialNotes)
+      })
   };
 
   const searchNumber = (event) => {
-    setNewName(event.target.value)
-  }
+    setSearchName(event.target.value)
+  };
 
   const handleSearch = () => {
     const searchNum = notes.filter(note => {
-      return note.name === newName ? `${note.name} ${note.phone}` : null;
+      return note.name === searchName ? `${note.name} ${note.phone}` : null;
     })
-    if (newName === "") {
+    console.log("searchNum : ", searchNum)
+    if (searchNum === "") {
       setNotes([])
     } else {
       setFilterNotes(searchNum)
     }
+  };
+
+  const handleNewName = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const handleNewPhone = (event) => {
+    setNewPhone(event.target.value);
+  };
+
+  const handleAddContact = (event) => {
+    event.preventDefault();
+    const noteObject = {
+      id: new Date().toISOString(),
+      name: newName,
+      number: newPhone,
+    }
+    noteService
+      .create(noteObject)
+      .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
+        setNewName('')
+        setNewPhone('')
+      })
+  };
+
+  const handleDelete = (id) => {
+    const note = notes.find(note => note.id === id);
+    if (window.confirm(`Delete ${note.name} ?`)) {
+      noteService
+        .remove(id)
+        .then(returnedNote => {
+          setNotes(notes.filter(note => note.id !== id))
+        })
+        .catch(error => {
+          alert(`the note '${note.name}' was already deleted from server`)
+          setNotes(notes.filter(note => note.id !== id))
+        })
+    } else {
+      return null;
+    }
+  };
+
+  const handleSwitch = () => {
+    setSwitchNumber(!switchNumber);
+  };
+
+  const handleChangeNumber = (event) => {
+    setNewPhone(event.target.value);
+  };
+
+  const validateNumber = (event, id) => {
+    event.preventDefault();
   };
 
   return (
@@ -61,18 +117,38 @@ function App() {
 
         <div className="display--div">
           <label>Search Contact</label>
-          <input type="text" value={newName} onChange={searchNumber} />
+          <input type="text" value={searchName} onChange={searchNumber} />
           <button onClick={handleSearch}>Search</button>
         </div>
 
-        {filterNotes.map(note => (
+        <div className="display--div">
+          <label>Add New Contact</label>
+          <input type="text" value={newName} onChange={handleNewName} />
+          <input type="text" value={newPhone} onChange={handleNewPhone} />
+          <button onClick={handleAddContact}>Enter</button>
+        </div>
+
+        {notes.slice(0, 10).map(note => (
           <div key={note.id} className="filtermap--div">
             <p>{note.name}</p>
             <p>{note.number}</p>
+            <button onClick={() => handleDelete(note.id)}>Delete</button>
+            <button onClick={handleSwitch}>
+              {switchNumber ? "hide" : "change"}
+            </button>
+            {switchNumber ? (
+              <div>
+                <input value={newPhone} onChange={() => handleChangeNumber(note.id)} />
+                <button onClick={() => validateNumber(note.id)}>
+                  Validate
+                </button>
+              </div>
+              ) : null
+            }
           </div>
         ))}
 
-        {notes.map(note => (
+        {filterNotes.map(note => (
           <div key={note.id} className="notemap--div">
             <p>{note.id}</p>
             <p>{note.name}</p>
@@ -81,7 +157,6 @@ function App() {
         ))}
 
       </div>
-
     </div>
   );
 }
