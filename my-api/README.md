@@ -3,9 +3,23 @@
 
 React API (front: axios - back: express/json-server)
 
-A simple API to test CRUD with express (back) & axios (front). You need 2 consoles to run app completely. One for front & the second for backend. Therefore, axios can communicate with express.
+A simple API to test CRUD with express (back) & axios (front). You need 2 consoles to run app completely. One from root folder (front) & the second from backend folder. 
 
-(Read README.md for more informations about cmd run in backend folder).
+- my-app
+
+└─ $ npm start
+
+- my-app/backend
+
+└─ $ npm run dev
+
+└─ $ npm run server (server json)
+
+└─ $ npm start
+
+Therefore, axios can communicate with express.
+
+Read README.md for more informations about cmd run in backend folder.
 
 ## Install
 
