@@ -10,14 +10,14 @@ Install
 
 (To add TypeScript)
 
-└─ $ arrow_forward npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+└─ $ npm install --save typescript @types/node @types/react @types/react-dom @types/jest
 
-└─ $ arrow_forward npm install axios
+└─ $ npm install axios
 
-└─ $ arrow_forward npm install --save-dev sass
+└─ $ npm install --save-dev sass
 Run CMD
 
-└─ $ arrow_forward npm start
+└─ $ npm start
 
 If there are some vulnerabilities fund with nth-check after axios installation, don't be worry. Just change your package.json as follow :
 
@@ -29,9 +29,9 @@ If there are some vulnerabilities fund with nth-check after axios installation, 
 
 Now, you can run :
 
-└─ $ arrow_forward npm audit --production
+└─ $ npm audit --production
 
-└─ $ arrow_forward npm audit --omit=dev
+└─ $ npm audit --omit=dev
 
 If everything is ok, you will see this message :
 
