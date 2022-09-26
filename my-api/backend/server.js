@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 //const notes = require("./api/notes");
-const PORT = 4000;
+const PORT = 4001;
 
 //app.use("/api/notes", notes);
 app.use(cors());
@@ -46,7 +46,7 @@ app.get('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id);
   console.log(id)
   const note = notes.find(note => note.id === id);
-  console.log(note)
+  console.log("GET all", note)
   response.json(note)
 });
 
@@ -58,8 +58,9 @@ app.post('/api/notes', (request, response) => {
 });
 
 app.put('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id);
   const note = notes.find(note => note.id === id);
-  console.log(note)
+  console.log("Successfull PUT", note)
   response.json(note);
 });
 
