@@ -85,6 +85,8 @@ in your browser.
 
 (server.js)
 
+- GET
+
 ```
 app.get('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id);
@@ -106,22 +108,60 @@ app.get('/api/notes/:id', (request, response) => {
 })
 ```
 
+- POST
+
+```
+app.post('/api/notes', (request, response) => {
+  const note = request.body;
+  console.log("Successfull added !");
+  console.log(note);
+  response.json(note);
+});
+```
+
+(It's possible to retrieve data with :
+
+```
+  const id = request.body.id;
+  const name = request.body.name;
+  const number = request.body.number;
+  const note = id + " " + name + " " + number;
+```
+
+but not as well structured as in json format.)
+
+- DELETE
+
+```
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.filter(note => note.id !== id);
+  console.log("Successfull deleted !");
+  console.log(note);
+  response.json(note);
+});
+```
+
+- PUT
+
+---
+
 **IMPORTANT**
 
-> Number(request.params.id);
+- Number(request.params.id);
 
-- Use Number if "id": 1 instead "id": "1"
+Use Number if "id": 1 instead "id": "1"
 
-> response.end(JSON.stringify(note))
+- response.end(JSON.stringify(note))
 
-- Display in format string in your browser.
-- Not requiered if you use json format : 
+Display in format string in your browser.
+Not requiered if you use json format : 
 **app.use(express.json()) + response.json(note)**
 
-> response.json(note)
+- response.json(note)
 
-- Display in format json in your browser.
+Display in format json in your browser.
 
-> response.end(note)
+- response.end(note)
 
-- Display error in your browser.
+Display error in your browser.

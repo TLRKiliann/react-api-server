@@ -7,7 +7,8 @@ body {
 }
 
 .subApp--div {
-  margin: 20px 100px;
+  margin: 10px 100px;
+  padding-bottom: 100px;
 
   border: 1px solid whitesmoke;
   border-radius: 5px;

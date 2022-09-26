@@ -3,22 +3,20 @@
     {
       "id": "2022-09-25T21:08:21.761Z",
       "name": "Jasmine",
-      "number": "089 785 23 44"
+      "number": "089 785 23 11",
+      "editNum": true
     },
     {
       "id": "2022-09-25T21:12:53.913Z",
       "name": "Francine",
-      "number": "0778 888 22 44"
+      "number": "0778 888 22 44",
+      "editNum": false
     },
     {
       "id": "2022-09-25T21:14:35.332Z",
       "name": "Chloe",
-      "number": "067 564 77 43"
-    },
-    {
-      "id": "2022-09-25T21:15:07.909Z",
-      "name": "Edmond",
-      "number": "078 546 44 33"
+      "number": "067 564 77 43",
+      "editNum": false
     }
   ]
 }
