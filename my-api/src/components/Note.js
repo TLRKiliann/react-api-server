@@ -1,3 +1,5 @@
+import './styles.css';
+
 const Note = ({
     note,
     handleDelete,
@@ -12,10 +14,10 @@ const Note = ({
 
   return (
     <div className="filtermap--div">
-      <p>{note.name}</p>
-      <p>{note.number}</p>
+      <p style={{border: '1px solid white'}}>{note.name}</p>
+      <p style={{border: '1px solid white'}}>{note.number}</p>
       <button
-        onClick={() => handleDelete}
+        onClick={handleDelete}
       >
         Delete
       </button>
