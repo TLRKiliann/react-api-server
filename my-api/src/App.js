@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SearchNote from "./components/SearchNote";
 import Note from './components/Note';
 import noteService from './services/noteservices';
 import './App.css';
@@ -10,7 +11,6 @@ function App() {
   const [searchName, setSearchName] = useState("");
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
-  //const [switchNumber, setSwitchNumber] = useState(false);
   const [editPhoneNumber, setEditPhoneNumber] = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,7 @@ function App() {
       })
   }, []);
 
-  //console.log("notes : ", notes)
-  //console.log("filterNotes : ", filterNotes)
-
+  //Display all with btn display
   const displayNote = () => {
     noteService
       .getAll()
@@ -38,6 +36,7 @@ function App() {
     setSearchName(event.target.value)
   };
 
+  //Search note
   const handleSearch = () => {
     const searchNum = notes.filter(note => {
       return note.name === searchName
@@ -48,18 +47,20 @@ function App() {
     if (searchNum === "") {
       setNotes([])
     } else {
-      setFilterNotes(searchNum)
+      setFilterNotes(searchNum);
     }
   };
 
+  //Value name to add
   const handleNewName = (event) => {
     setNewName(event.target.value);
   };
-
+  //Value number to add
   const handleNewPhone = (event) => {
     setNewPhone(event.target.value);
   };
 
+  //Add note
   const handleAddContact = (event) => {
     event.preventDefault();
     const noteObject = {
@@ -76,6 +77,7 @@ function App() {
       })
   };
 
+  //Delete note
   const handleDelete = (id) => {
     const note = notes.find(note => note.id === id);
     if (window.confirm(`Delete ${note.name} ?`)) {
@@ -93,10 +95,7 @@ function App() {
     }
   };
 
-  /*const handleSwitch = () => {
-    setSwitchNumber(!switchNumber);
-  };*/
-
+  //To change note.number
   const handleChangeNumber = (event) => {
     setEditPhoneNumber(event.target.value);
   };
@@ -151,30 +150,42 @@ function App() {
 
         <div className="display--div">
           <label>Search Contact</label>
-          <input type="text" value={searchName} onChange={searchNumber} />
+          <input
+            type="text"
+            value={searchName}
+            onChange={searchNumber} 
+            placeholder="Enter name"/>
           <button onClick={handleSearch}>Search</button>
         </div>
 
+        {searchName ? filterNotes.map(note => (
+          <SearchNote 
+            key={note.id}
+            name={note.name}
+            number={note.number}
+          />
+        )): null }
+
         <div className="display--div">
           <label>Add New Contact</label>
-          <input type="text" value={newName} onChange={handleNewName} />
-          <input type="text" value={newPhone} onChange={handleNewPhone} />
+          <input
+            type="text"
+            value={newName}
+            onChange={handleNewName}
+            placeholder="Enter name"/>
+          <input
+            type="text"
+            value={newPhone}
+            onChange={handleNewPhone} 
+            placeholder="Phone number"/>
           <button onClick={handleAddContact}>Enter</button>
         </div>
-
-        {filterNotes.map(note => (
-          <div key={note.id} className="notemap--div">
-            <p>{note.id}</p>
-            <p>{note.name}</p>
-            <p>{note.number}</p>
-          </div>
-        ))}
 
         {notes.map(note => (
           <Note
             key={note.id}
             note={note}
-            handleDelete={handleDelete}
+            handleDelete={() => handleDelete(note.id)}
             editNum={note.editNum}
             editPhoneNumber={editPhoneNumber}
             handleChangeNumber={(e) => handleChangeNumber(e)}

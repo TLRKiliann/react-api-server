@@ -1,0 +1,54 @@
+.notemap--div {
+  width: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: steelblue;
+  border-radius: 15px;
+  box-shadow: 0px 9;
+  color: whitesmoke;
+}
+
+.notemap--div p {
+  margin: 5px 10px;
+  font-size: 1.2rem;
+  color: orange;
+}
+
+/*A revoir..*/
+.filtermap--div {
+  width: 80%;
+  margin: auto;
+  margin: 1% 9%;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background: purple;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+}
+
+.filtermap--div p {
+  margin: 5px 10px;
+}
+
+.filtermap--div button {
+  margin-left: 10px;
+  padding: 3px 10px;
+  background: royalblue;
+  border-color: white;
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+.filtermap--div button:hover {
+  font-weight: bold;
+  background: whitesmoke;
+  border-color: red;
+  border-radius: 5px;
+  color: red;
+}
