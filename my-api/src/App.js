@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Note from './components/Note';
 import noteService from './services/noteservices';
 import './App.css';
 
@@ -9,7 +10,8 @@ function App() {
   const [searchName, setSearchName] = useState("");
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
-  const [switchNumber, setSwitchNumber] = useState(false);
+  //const [switchNumber, setSwitchNumber] = useState(false);
+  const [editPhoneNumber, setEditPhoneNumber] = useState([]);
 
   useEffect(() => {
     noteService
@@ -38,7 +40,9 @@ function App() {
 
   const handleSearch = () => {
     const searchNum = notes.filter(note => {
-      return note.name === searchName ? `${note.name} ${note.phone}` : null;
+      return note.name === searchName
+      ? `${note.name} ${note.phone}`
+      : null;
     })
     console.log("searchNum : ", searchNum)
     if (searchNum === "") {
@@ -89,16 +93,46 @@ function App() {
     }
   };
 
-  const handleSwitch = () => {
+  /*const handleSwitch = () => {
     setSwitchNumber(!switchNumber);
-  };
+  };*/
 
   const handleChangeNumber = (event) => {
-    setNewPhone(event.target.value);
+    setEditPhoneNumber(event.target.value);
   };
 
-  const validateNumber = (event, id) => {
-    event.preventDefault();
+  //Change note.editNum to true !
+  const switchEditNum = (id) => {
+    const note = notes.find(note => note.id === id);
+    const switchPhone = { ...note, editNum: !note.editNum }
+    setEditPhoneNumber(note ? note.number : null);
+
+    noteService
+      .update(id, switchPhone)
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote));
+      })
+      .catch(error => {
+        console.log("Error server with note.editNum")
+        setNotes(notes.filter(n => n.id !== id))
+      })
+  };
+
+  //Change phone number !
+  const validateNumber = (id) => {
+    const note = notes.find(n => n.id === id)
+    const newNumber = {...note, number: editPhoneNumber};
+
+    noteService
+      .update(id, newNumber)
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id === id ? returnedNote : note));
+      })
+      .catch(error => {
+        alert(`the note '${note.number}' not found !`)
+        setNotes(notes.filter(n => n.id !== id))
+      })
+    setEditPhoneNumber([]);
   };
 
   return (
@@ -128,32 +162,25 @@ function App() {
           <button onClick={handleAddContact}>Enter</button>
         </div>
 
-        {notes.slice(0, 10).map(note => (
-          <div key={note.id} className="filtermap--div">
-            <p>{note.name}</p>
-            <p>{note.number}</p>
-            <button onClick={() => handleDelete(note.id)}>Delete</button>
-            <button onClick={handleSwitch}>
-              {switchNumber ? "hide" : "change"}
-            </button>
-            {switchNumber ? (
-              <div>
-                <input value={newPhone} onChange={() => handleChangeNumber(note.id)} />
-                <button onClick={() => validateNumber(note.id)}>
-                  Validate
-                </button>
-              </div>
-              ) : null
-            }
-          </div>
-        ))}
-
         {filterNotes.map(note => (
           <div key={note.id} className="notemap--div">
             <p>{note.id}</p>
             <p>{note.name}</p>
             <p>{note.number}</p>
           </div>
+        ))}
+
+        {notes.map(note => (
+          <Note
+            key={note.id}
+            note={note}
+            handleDelete={handleDelete}
+            editNum={note.editNum}
+            editPhoneNumber={editPhoneNumber}
+            handleChangeNumber={(e) => handleChangeNumber(e)}
+            validateNumber={() => validateNumber(note.id)}
+            switchEditNum={() => switchEditNum(note.id)}
+          />
         ))}
 
       </div>
