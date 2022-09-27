@@ -1,12 +1,25 @@
 import axios from 'axios';
 
-//const baseUrl = 'http://localhost:4001/api/notes';
-const baseUrl = 'http://localhost:3001/notes';
+const baseUrl = 'http://localhost:4001/api/notes';
+//const baseUrl = 'http://localhost:3001/notes';
+const nbContact = 'http://localhost:4001/info';
+
+const callInfo = () => {
+  const request = axios.get(nbContact);
+  return request.then(response => response.data);
+};
 
 const getAll = () => {
   const request = axios.get(baseUrl);
   return request.then(response => response.data);
 };
+
+/*
+const getById = () => {
+  const request = axios.get(`${baseUrl}/${id}`, newObject);
+  return request.then(response => response.data);
+}
+*/
 
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject);
@@ -24,4 +37,4 @@ const remove = (id) => {
 };
 
 // eslint-disable-next-line
-export default { getAll, create, update, remove };
+export default { callInfo, getAll, create, update, remove };
