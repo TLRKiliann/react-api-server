@@ -14,8 +14,8 @@ const Note = ({
 
   return (
     <div className="filtermap--div">
-      <p style={{background: 'blue'}}>{note.name}</p>
-      <p style={{background: 'blue'}}>{note.number}</p>
+      <p style={{background: 'navy'}}>{note.name}</p>
+      <p style={{background: 'navy'}}>{note.number}</p>
       <button
         onClick={handleDelete}
       >
