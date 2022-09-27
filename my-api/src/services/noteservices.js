@@ -1,13 +1,13 @@
 import axios from 'axios';
-
 //To change between express & server-json
-const baseUrl = 'http://localhost:4001/api/notes';
-//const baseUrl = 'http://localhost:3001/notes';
+//const baseUrl = 'http://localhost:4001/api/notes';
+const baseUrl = 'http://localhost:3001/notes';
 const nbContact = 'http://localhost:4001/info';
 
-const callInfo = () => {
+
+const callInfo = async () => {
   const request = axios.get(nbContact);
-  return request.then(response => response.data);
+  await request.then(response => response.data)
 };
 
 const getAll = () => {
