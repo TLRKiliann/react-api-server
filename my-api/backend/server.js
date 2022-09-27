@@ -8,6 +8,8 @@ const PORT = 4001;
 app.use(cors());
 app.use(express.json());
 
+const date = new Date;
+
 let notes = [
   {
     "id": 1,
@@ -33,8 +35,14 @@ app.get("/", (request, response) => {
   response.send("<h1>Hello from server !</h1>")
 });
 
+app.get("/info", (request, response) => {
+  console.log("Access to info !")
+  response.send(`<h4>Number of contacts : ${notes.length}</h4> \
+    ${date}`).status(200).end();
+});
+
 app.get("/api/notes", (request, response) => {
-  response.json(notes);
+  response.json(notes).status(200).end();
 });
 
 app.get("/api", (request, response) => {
@@ -46,22 +54,22 @@ app.get('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id);
   console.log(id)
   const note = notes.find(note => note.id === id);
-  console.log("GET all", note)
-  response.json(note)
+  console.log("GET by ID", note);
+  response.json(note).status(200).end();
 });
 
 app.post('/api/notes', (request, response) => {
   const note = request.body;
   console.log("Successfull added !");
   console.log(note);
-  response.json(note);
+  response.json(note).status(201).end();
 });
 
 app.put('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id);
   const note = notes.find(note => note.id === id);
   console.log("Successfull PUT", note)
-  response.json(note);
+  response.json(note).status(200).end();;
 });
 
 app.delete('/api/notes/:id', (request, response) => {
@@ -69,7 +77,9 @@ app.delete('/api/notes/:id', (request, response) => {
   const note = notes.filter(note => note.id !== id);
   console.log("Successfull deleted !");
   console.log(note);
-  response.json(note);
+  response.json(note).status(202).end();
 });
 
-app.listen(PORT, () => console.log(`[+] Server is running on port : ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`[+] Server is running on port : ${PORT}`)
+});

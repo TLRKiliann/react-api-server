@@ -5,7 +5,7 @@ import noteService from './services/noteservices';
 import './App.css';
 
 
-function App() {
+const App = () => {
   const [notes, setNotes] = useState([]);
   const [filterNotes, setFilterNotes] = useState([]);
   const [searchName, setSearchName] = useState("");
@@ -32,11 +32,16 @@ function App() {
       })
   };
 
+  const displayContact = () => {
+    noteService
+      .callInfo()
+  };
+
   const searchNumber = (event) => {
     setSearchName(event.target.value)
   };
 
-  //Search note
+  //Search note by id
   const handleSearch = () => {
     const searchNum = notes.filter(note => {
       return note.name === searchName
@@ -60,11 +65,17 @@ function App() {
     setNewPhone(event.target.value);
   };
 
+  const generateId = () => {
+    const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => n.id)) : 0
+      return maxId + 1;
+  }
+
   //Add note
   const handleAddContact = (event) => {
     event.preventDefault();
     const noteObject = {
-      id: new Date().toISOString(),
+      id: generateId(),
       name: newName,
       number: newPhone,
     }
@@ -149,6 +160,17 @@ function App() {
         </div>
 
         <div className="display--div">
+          <label>Display Number of Contacts</label>
+          <button onClick={displayContact}>Display</button>
+          <a
+            href='http://localhost:4001/info'
+            className="page--info"
+          >
+            Go to page
+          </a>
+        </div>
+
+        <div className="display--div">
           <label>Search Contact</label>
           <input
             type="text"
@@ -164,7 +186,8 @@ function App() {
             name={note.name}
             number={note.number}
           />
-        )): null }
+          )) : null 
+        }
 
         <div className="display--div">
           <label>Add New Contact</label>
