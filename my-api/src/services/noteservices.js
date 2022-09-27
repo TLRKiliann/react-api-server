@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//To change between express & server-json
 const baseUrl = 'http://localhost:4001/api/notes';
 //const baseUrl = 'http://localhost:3001/notes';
 const nbContact = 'http://localhost:4001/info';
@@ -14,12 +15,10 @@ const getAll = () => {
   return request.then(response => response.data);
 };
 
-/*
-const getById = () => {
-  const request = axios.get(`${baseUrl}/${id}`, newObject);
+const getById = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`);
   return request.then(response => response.data);
-}
-*/
+};
 
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject);
@@ -37,4 +36,4 @@ const remove = (id) => {
 };
 
 // eslint-disable-next-line
-export default { callInfo, getAll, create, update, remove };
+export default { callInfo, getAll, getById, create, update, remove };

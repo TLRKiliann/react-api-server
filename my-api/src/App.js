@@ -42,7 +42,7 @@ const App = () => {
   };
 
   //Search note by id
-  const handleSearch = () => {
+  /*const handleSearch = () => {
     const searchNum = notes.filter(note => {
       return note.name === searchName
       ? `${note.name} ${note.phone}`
@@ -54,6 +54,21 @@ const App = () => {
     } else {
       setFilterNotes(searchNum);
     }
+  };*/
+
+  const handleSearch = () => {
+    const searchNum = notes.filter(note => note.name === searchName);
+    const searchId = searchNum.filter(note => note);
+    const returnId = searchId[0].id;
+    console.log(returnId)
+
+    noteService
+      .getById(returnId)
+      .then(returnNote => {
+        console.log(returnNote)
+        //return id or all data ???
+        setFilterNotes(returnNote);
+      })
   };
 
   //Value name to add
@@ -170,6 +185,7 @@ const App = () => {
           </a>
         </div>
 
+
         <div className="display--div">
           <label>Search Contact</label>
           <input
@@ -179,6 +195,7 @@ const App = () => {
             placeholder="Enter name"/>
           <button onClick={handleSearch}>Search</button>
         </div>
+
 
         {searchName ? filterNotes.map(note => (
           <SearchNote 
