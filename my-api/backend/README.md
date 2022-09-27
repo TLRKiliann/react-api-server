@@ -1,5 +1,5 @@
 
-# Backend setup & config
+# Server setup & config (back)
 
 A simple API to test CRUD with express (back) & axios (front). You need 2 consoles to run app completely. One for front & the second for backend. Therefore, axios can communicate with express.
 Install

@@ -2,66 +2,69 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  background: royalblue;
-  color: whitesmoke;
+  background: #000000;
+  color: cyan;
 }
 
 .subApp--div {
-  margin: 10px 100px;
-  padding-bottom: 100px;
-
-  border: 1px solid whitesmoke;
+  margin: 5% 10%;
+  padding: 20px 0px;
+  background: linear-gradient(30deg,
+    #000000, #3d3d3d, #000000);
+  border: 1px solid cyan;
   border-radius: 5px;
+  box-shadow: 0px 0px 12px 2px cyan;
 }
 
 .main--title {
   text-align: center;
   font-family: 'Consolas';
-  color: orange;
+  color: cyan;
+  text-shadow: 2px 1px 2px blue,
+  3px 2px 3px white;
 }
 
 .display--div {
-  margin: 20px 0px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  margin: 20px 200px;
+  display: inline-block;
 }
 
 .display--div label {
+  display: inline-block;
   font-family: 'Consolas';
   font-size: 1.2rem;
 }
 
 .display--div input {
-  width: 12%;
+  display: inline-block;
+  width: 20%;
   padding: 0px 5px;
   margin-left: 10px;
   border: 1px solid whitesmoke;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px whitesmoke;
+  box-shadow: 0px 0px 7px whitesmoke;
 }
 
 .display--div button {
-  margin-left: 20px;
-  padding: 3px 10px;
-  background: royalblue;
-  border-color: white;
-  border-radius: 5px;
-  color: whitesmoke;
+  margin-left: 10px;
+  padding: 5px 10px;
+  background: navy;
+  border-color: cyan;
+  border-radius: 15px;
+  color: cyan;
 }
 
 .display--div button:hover {
-  font-weight: bold;
-  background: whitesmoke;
-  border-color: red;
-  border-radius: 5px;
-  color: red;
+  background: darkgreen;
+  border-radius: 15px;
+  color: cyan;
 }
 
 .page--info {
+  display: inline-block;
   margin-left: 20px;
   text-decoration: none;
+  color: cyan;
 }
 
 .page--info:hover {

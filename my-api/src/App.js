@@ -41,8 +41,9 @@ const App = () => {
     setSearchName(event.target.value)
   };
 
-  //Search note by id
-  const handleSearch = () => {
+  //Search note (best practice)
+  const handleSearch = (e) => {
+    e.preventDefault();
     const searchNum = notes.filter(note => {
       return note.name === searchName
       ? `${note.name} ${note.phone}`
@@ -55,6 +56,30 @@ const App = () => {
       setFilterNotes(searchNum);
     }
   };
+
+  //Search note by id without mapping before.
+  //It's not a best practices, because we use a GET.
+  /*const handleSearch = () => {
+    const searchNum = notes.filter(note => {
+      return note.name === searchName
+        ? `${note.name} ${note.phone}`
+        : null;
+    });
+    const searchId = searchNum.filter(note => note);
+    const returnId = searchId[0].id;
+    //console.log(returnId)
+
+    noteService
+      .getById(returnId)
+      .then(returnNote => {
+        //const truc = Object.keys(data.returnNote)
+        if (returnNote) {
+          setFilterNotes(searchNum);
+        } else {
+          return null;
+        }
+      })
+  };*/
 
   //Value name to add
   const handleNewName = (event) => {
@@ -69,7 +94,7 @@ const App = () => {
     const maxId = notes.length > 0
     ? Math.max(...notes.map(n => n.id)) : 0
       return maxId + 1;
-  }
+  };
 
   //Add note
   const handleAddContact = (event) => {
@@ -78,6 +103,7 @@ const App = () => {
       id: generateId(),
       name: newName,
       number: newPhone,
+      editNum: false
     }
     noteService
       .create(noteObject)
@@ -161,7 +187,7 @@ const App = () => {
 
         <div className="display--div">
           <label>Display Number of Contacts</label>
-          <button onClick={displayContact}>Display</button>
+          <button onClick={displayContact}>Catch Response</button>
           <a
             href='http://localhost:4001/info'
             className="page--info"
@@ -170,15 +196,18 @@ const App = () => {
           </a>
         </div>
 
-        <div className="display--div">
+
+        <form onSubmit={(e) => handleSearch(e)} className="display--div">
           <label>Search Contact</label>
           <input
             type="text"
             value={searchName}
             onChange={searchNumber} 
-            placeholder="Enter name"/>
-          <button onClick={handleSearch}>Search</button>
-        </div>
+            placeholder="Enter name"
+            style={{width: "30%"}}/>
+          <button type="submit">Search</button>
+        </form>
+
 
         {searchName ? filterNotes.map(note => (
           <SearchNote 
