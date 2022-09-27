@@ -8,7 +8,7 @@ const PORT = 4001;
 app.use(cors());
 app.use(express.json());
 
-const date = new Date;
+const date = new Date();
 
 let notes = [
   {
@@ -37,8 +37,8 @@ app.get("/", (request, response) => {
 
 app.get("/info", (request, response) => {
   console.log("Access to info !")
-  response.send(`<h4>Number of contacts : ${notes.length}</h4> \
-    ${date}`).status(200).end();
+  response.send(`<h4>Number of contacts : ${notes.length}\
+    people</h4> ${date}`).status(200).end();
 });
 
 app.get("/api/notes", (request, response) => {
