@@ -58,3 +58,12 @@ body {
   border-radius: 5px;
   color: red;
 }
+
+.page--info {
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.page--info:hover {
+  color: white;
+}
