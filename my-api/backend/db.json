@@ -1,40 +1,19 @@
 {
   "notes": [
     {
-      "id": "2022-09-25T21:08:21.761Z",
-      "name": "Jasmine",
-      "number": "089 785 23 22",
-      "editNum": false
+      "id": 1,
+      "name": "Paul",
+      "number": "022 234 44 11"
     },
     {
-      "id": "2022-09-25T21:12:53.913Z",
-      "name": "Francine",
-      "number": "0778 88 22 44",
-      "editNum": false
+      "id": 2,
+      "name": "Noemi",
+      "number": "021 234 45 33"
     },
     {
-      "id": "2022-09-26T16:21:10.744Z",
-      "name": "Orental",
-      "number": "099 235 33 66",
-      "editNum": false
-    },
-    {
-      "id": "2022-09-26T16:27:39.647Z",
-      "name": "Jeffrey",
-      "number": "022 221 11 22",
-      "editNum": false
-    },
-    {
-      "id": "2022-09-26T16:51:32.650Z",
-      "name": "John",
-      "number": "021 324 44 11",
-      "editNum": false
-    },
-    {
-      "id": "2022-09-26T17:29:52.080Z",
-      "name": "Doug",
-      "number": "098 782 23 33",
-      "editNum": false
+      "id": 3,
+      "name": "Joeffroy",
+      "number": "897 232 23 22"
     }
   ]
 }
