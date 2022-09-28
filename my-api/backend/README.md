@@ -132,6 +132,10 @@ but not as well structured as in json format.)
 
 - DELETE
 
+It's not recommanded to use delete method on a local server !
+
+(App.js)
+
 ```
 app.delete('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id);
@@ -142,7 +146,88 @@ app.delete('/api/notes/:id', (request, response) => {
 });
 ```
 
-- PUT
+```
+  //Delete note
+  const handleDelete = (id) => {
+    const note = notes.find(note => note.id === id);
+    if (window.confirm(`Delete ${note.name} ?`)) {
+      noteService
+        .remove(id)
+        .then(returnedNote => {
+          setNotes(notes.filter(note => note.id !== id))
+        })
+        .catch(error => {
+          alert(`the note '${note.name}' was already deleted from server`)
+          setNotes(notes.filter(note => note.id !== id))
+        })
+    } else {
+      return null;
+    }
+  };
+```
+
+(noteservices.js)
+
+```
+const remove = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then(response => response.data);
+};
+```
+
+- PUT (create or update)
+
+(App.js)
+
+```
+  //To change note.number
+  const handleChangeNumber = (event) => {
+    setEditPhoneNumber(event.target.value);
+  };
+
+  //Change note.editNum to true !
+  const switchEditNum = (id) => {
+    const note = notes.find(note => note.id === id);
+    const switchPhone = { ...note, editNum: !note.editNum }
+    setEditPhoneNumber(note ? note.number : null);
+
+    noteService
+      .update(id, switchPhone)
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote));
+      })
+      .catch(error => {
+        console.log("Error server with note.editNum")
+        setNotes(notes.filter(n => n.id !== id))
+      })
+  };
+
+  //Change phone number !
+  const validateNumber = (id) => {
+    const note = notes.find(n => n.id === id)
+    const newNumber = {...note, number: editPhoneNumber};
+
+    noteService
+      .update(id, newNumber)
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id === id ? returnedNote : note));
+      })
+      .catch(error => {
+        alert(`the note '${note.number}' not found !`)
+        setNotes(notes.filter(n => n.id !== id))
+      })
+    setEditPhoneNumber([]);
+  };
+```
+
+(noteservices.js)
+
+```
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject);
+  return request.then(response => response.data);
+};
+```
 
 ---
 
@@ -165,3 +250,13 @@ Display in format json in your browser.
 - response.end(note)
 
 Display error in your browser.
+
+---
+
+## Middleware
+
+json-parser (middleware)
+
+`app.use(express.json())`
+
+Middleware are functions that can be used for handling request and response objects.
