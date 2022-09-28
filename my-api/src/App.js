@@ -51,7 +51,7 @@ const App = () => {
     })
     //console.log("searchNum : ", searchNum)
     if (searchNum === "") {
-      setNotes([]);
+      setFilterNotes([]);
     } else {
       setFilterNotes(searchNum);
       setSearchName([]);
