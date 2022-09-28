@@ -8,7 +8,7 @@ import './App.css';
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [filterNotes, setFilterNotes] = useState([]);
-  const [searchName, setSearchName] = useState("");
+  const [searchName, setSearchName] = useState('');
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
   const [editPhoneNumber, setEditPhoneNumber] = useState([]);
@@ -38,7 +38,7 @@ const App = () => {
   };
 
   const searchNumber = (event) => {
-    setSearchName(event.target.value)
+    setSearchName(event.target.value);
   };
 
   //Search note (best practice)
@@ -49,37 +49,14 @@ const App = () => {
       ? `${note.name} ${note.phone}`
       : null;
     })
-    console.log("searchNum : ", searchNum)
+    //console.log("searchNum : ", searchNum)
     if (searchNum === "") {
-      setNotes([])
+      setNotes([]);
     } else {
       setFilterNotes(searchNum);
+      setSearchName([]);
     }
   };
-
-  //Search note by id without mapping before.
-  //It's not a best practices, because we use a GET.
-  /*const handleSearch = () => {
-    const searchNum = notes.filter(note => {
-      return note.name === searchName
-        ? `${note.name} ${note.phone}`
-        : null;
-    });
-    const searchId = searchNum.filter(note => note);
-    const returnId = searchId[0].id;
-    //console.log(returnId)
-
-    noteService
-      .getById(returnId)
-      .then(returnNote => {
-        //const truc = Object.keys(data.returnNote)
-        if (returnNote) {
-          setFilterNotes(searchNum);
-        } else {
-          return null;
-        }
-      })
-  };*/
 
   //Value name to add
   const handleNewName = (event) => {
@@ -105,12 +82,17 @@ const App = () => {
       number: newPhone,
       editNum: false
     }
+
     noteService
       .create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
         setNewName('')
         setNewPhone('')
+      })
+      .catch(error => {
+        alert(`Number or Name is missing !`)
+        setNotes([])
       })
   };
 
@@ -210,28 +192,29 @@ const App = () => {
 
 
         {searchName ? filterNotes.map(note => (
-          <SearchNote 
+          <SearchNote
             key={note.id}
             name={note.name}
             number={note.number}
           />
-          )) : null 
+          )) : null
         }
 
-        <div className="display--div">
+        <form onSubmit={(e) => handleAddContact(e)}
+          className="display--div">
           <label>Add New Contact</label>
           <input
             type="text"
             value={newName}
             onChange={handleNewName}
-            placeholder="Enter name"/>
+            placeholder="Enter name" autoComplete="off" required/>
           <input
             type="text"
             value={newPhone}
             onChange={handleNewPhone} 
-            placeholder="Phone number"/>
-          <button onClick={handleAddContact}>Enter</button>
-        </div>
+            placeholder="Phone number" required/>
+          <button type="submit">Enter</button>
+        </form>
 
         {notes.map(note => (
           <Note
