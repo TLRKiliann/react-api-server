@@ -3,17 +3,20 @@
     {
       "id": 1,
       "name": "Paul",
-      "number": "022 234 44 11"
+      "number": "022 234 44 33",
+      "editNum": false
     },
     {
       "id": 2,
       "name": "Noemi",
-      "number": "021 234 45 33"
+      "number": "021 234 45 33",
+      "editNum": false
     },
     {
-      "id": 3,
-      "name": "Joeffroy",
-      "number": "897 232 23 22"
+      "id": 5,
+      "name": "Ben",
+      "number": "089 899 22 22",
+      "editNum": false
     }
   ]
 }
